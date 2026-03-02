@@ -1,0 +1,37 @@
+# TrustBoost Shopify App Configuration
+# https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "TrustBoost"
+client_id = "{{ SHOPIFY_API_KEY }}"
+application_url = "{{ HOST }}"
+embedded = true
+
+[access_scopes]
+scopes = "read_products,write_script_tags,read_orders,read_analytics"
+
+[auth]
+redirect_urls = [
+  "{{ HOST }}/api/auth/callback",
+]
+
+[webhooks]
+api_version = "2025-01"
+
+  [[webhooks.subscriptions]]
+  topics = ["app/uninstalled"]
+  uri = "/api/webhooks"
+
+  [[webhooks.subscriptions]]
+  topics = ["customers/data_request"]
+  uri = "/api/webhooks"
+
+  [[webhooks.subscriptions]]
+  topics = ["customers/redact"]
+  uri = "/api/webhooks"
+
+  [[webhooks.subscriptions]]
+  topics = ["shop/redact"]
+  uri = "/api/webhooks"
+
+[pos]
+embedded = false
